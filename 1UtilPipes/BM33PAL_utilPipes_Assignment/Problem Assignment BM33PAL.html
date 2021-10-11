@@ -1,0 +1,302 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html><head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <meta http-equiv="cache-control" content="no-cache">
+  <link rel="stylesheet" type="text/css" href="Problem%20Assignment%20BM33PAL_files/default.html">
+  <title>Problem Assignment BM33PAL</title>
+</head>
+<body>
+ <div class="main">
+  
+<h2><font color="blue">Utility Pipes</font></h2>
+
+There are two kinds of agricultural farms in the area - bigger farms, called hub farms, and smaller farms, called subject farms.
+<br>
+Some pairs of farms are connected by roads and each subject farm is 
+accessible from at least one hub farm by a sequence of one or more 
+roads.
+<br>
+
+A network of utility pipes is going to be built in the area. All hub farms are already
+connected to the state backbone utility grid, and none of the subject farms is connected to it.
+<br>
+
+The proposed network will connect each subject farm to exactly one hub 
+farm by a sequence of one or more pipes.
+Each pipe will connect two farms and it will be laid by the road 
+connecting the farms, thus, its length will be the same as the length of
+ the road.
+<br>
+To keep the network scheme simple, it was decided that each subject farm
+ will be connected to its closest hub farm. The distance between two 
+farms is always equal to the minimum total length of roads that have to 
+be traversed when traveling from one farm to the other one. All roads 
+are two-way roads.
+<br>
+It was soon pointed out by the oponents of the project there there may 
+be some subject farms for which there exist two or more closest hub 
+farms. Project managers therefore decided to call such farms <i>undecided</i>
+ farms and exclude them from the project altogether, if they will be 
+revealed in the area. A separate project regarding their connection to 
+the network would be proposed later.
+
+<br>
+<br>
+An obvious demand of the management and the farmers is to lay pipes in optimal way, that is, to minimize their total length.
+<br>
+
+
+
+
+� 
+� 
+� <table width="900" border="0" align="center"><tbody><tr><td align="center">
+      <img style="width: 370px; height: 246px;" src="Problem%20Assignment%20BM33PAL_files/getdata_002.php"><br><br>
+	<!--
+	  <img style="width: 370px; height: 246px;" src="img1.png" /><br><br>
+	-->
+
+
+   <b>Image 1.</b> A scheme of farms and roads in the area. Small 
+circles represent farms, lines represent roads. Hub farms are drawn in 
+black, numbers at the roads represent their length. Roads with pipes are
+ highlighted in blue. The choice of roads with pipes is optimal, the 
+total length of pipes is 42. There are 4 undecided farms, with 
+background highlighted in light blue.  The scheme illustrates Example 1 
+below.
+  </td></tr>
+</tbody></table>
+
+
+
+
+<h3><font color="blue">The task</font></h3>
+<p align="justify">
+You are given a list of lengths of all roads in the area. Also, you are given a list of all hub farms in the area.
+Find the minimum total length of all pipes in the project and the number of undecided farms.
+</p>
+
+ <hr>
+
+
+
+<h3><font color="blue">Input</font></h3>
+<p align="justify">
+The first line of input contains two integers <i>F</i> and <i>R</i>, number of farms and the number of roads.
+Farms are labeled by integers 0, 1, ..., <i>F</i>−1.
+<br>
+Next, there are <i>R</i> lines, each specifies one road.
+There are three integers on a line specifying a road, the first two are the labels of farms connected by the road
+and the third one is the length of the road.
+<br>
+Next, there is a line with single integer <i>H</i>, the number of hub farms.
+The next line contains <i>H</i> integers, the list of labels of all hub farms.
+<br>
+
+It holds, 2 ≤ <i>F</i> ≤ 10<sup>4</sup>, 1 ≤ <i>R</i> ≤ 10<sup>6</sup>, 1 ≤ <i>H</i> ≤ <i>F</i>. All road lengths are positive integers less than 1000.
+<br>
+All adjacent input values on any line are separated by a space.
+<br>
+</p>
+
+<h3><font color="blue">Output</font></h3>
+<p align="justify">
+Ouput consists of one text line with two integers separated by space,
+representing the minimum pipes network length and the number of undecided farms.
+</p>
+
+ <!---- example 1 ----------------------------------------------------->
+
+
+� 
+� 
+
+� 
+� �
+<table width="700" border="0" align="left"><tbody><tr><td width="400" align="left">
+    <h3><font color="blue">Example 1</font></h3>
+    <b>Input</b><br>
+<pre>20 31
+0 1 4
+0 5 2
+1 2 9
+1 6 5
+2 3 6
+2 7 2
+3 4 2
+3 8 7
+4 9 5
+5 6 7
+5 10 1
+6 7 8
+6 11 3
+7 8 9
+7 12 5
+8 9 3
+8 13 8
+9 14 2
+10 11 4
+10 15 6
+11 12 3
+11 16 5
+12 13 4
+12 17 4
+13 14 3
+13 18 2
+13 14 5
+15 16 2
+16 17 6
+17 18 8
+18 19 2
+4
+3 8 15 17
+</pre>
+
+<b>Output</b><br>
+<pre>42 4
+</pre>
+</td><td align="center">
+      <br>
+      <br>
+      <br>
+      <br>
+      <br>
+      <br>
+      <br>
+      <img style="width: 370px; height: 246px;" src="Problem%20Assignment%20BM33PAL_files/getdata_002.php"><br><br>
+	  <!--
+	  <img style="width: 370px; height: 246px;" src="img1.png" /><br><br>
+	  -->
+
+	  &nbsp;&nbsp;&nbsp; <b>Image 2.</b> A scheme of farms, roads and 
+optimal choice of roads with pipes in Example 1. Features of the scheme 
+are explained in the description of Image 1.
+  </td></tr></tbody></table>
+
+ <!---- example 2 ----------------------------------------------------->
+
+
+
+� 
+� 
+
+� 
+� �
+<table width="700" border="0" align="left"><tbody><tr><td width="400" align="left">
+    <h3><font color="blue">Example 2</font></h3>
+    <b>Input</b><br>
+<pre>13 16
+0 1 1
+0 5 1
+0 3 1
+1 2 1
+2 7 1
+2 4 1
+3 6 1
+4 6 1
+5 10 1
+6 8 1
+6 9 1
+7 12 1
+8 10 1
+9 12 1
+10 11 1
+11 12 1
+4
+0 2 12 10
+</pre>
+
+<b>Output</b><br>
+<pre>4 5
+</pre>
+  </td><td align="center">
+      <br>
+      <br>
+      <br>
+      <br>
+
+
+      <img style="width: 205px; height: 200px;" src="Problem%20Assignment%20BM33PAL_files/getdata_003.php"><br><br>
+	  <!--
+	  <img style="width: 205px; height: 200px;" src="img2.png" /><br><br>
+	  -->
+       &nbsp;&nbsp;&nbsp; <b>Image 3.</b>  A scheme of farms, roads and 
+optimal choice of roads with pipes in Example 2. Features of the scheme 
+are explained in the description of Image 1.
+  </td></tr></tbody></table>
+
+
+ <!---- example 3 ----------------------------------------------------->
+
+
+
+� 
+� 
+
+� 
+
+
+
+� �
+<table width="700" border="0"><tbody><tr><td width="400" align="left">
+    <h3><font color="blue">Example 3</font></h3>
+    <b>Input</b><br>
+<pre>8 11
+0 1 4
+1 2 4
+2 3 2
+3 4 7
+4 7 7
+7 6 2
+6 5 4
+5 0 4
+1 5 1
+2 6 1
+3 7 1
+2
+0 4
+</pre>
+
+<b>Output</b><br>
+<pre>18 0
+</pre>
+
+</td><td align="center">
+      <br>
+      <br>
+      <br>
+      <br>
+      <br>
+
+      <img style="width: 289px; height: 183px;" src="Problem%20Assignment%20BM33PAL_files/getdata.php"><br><br>
+	  <!--
+	  <img style="width: 289px; height: 183px;" src="img3.png" /><br><br>
+	  -->
+	  &nbsp;&nbsp;&nbsp; <b>Image 4.</b>  A scheme of farms, roads and 
+optimal choice of roads with pipes in Example 3. Note there are no 
+undecided farms in Example 3. Features of the scheme are explained in 
+the description of Image 1.
+  </td></tr></tbody></table>
+
+
+
+
+
+<hr>
+<h3><font color="blue">Public data</font></h3>
+<p align="justify">
+The public data set is intended for easier debugging and approximate 
+program correctness checking. The public data set is stored also in the 
+upload system and each time a student submits a solution it is run on 
+the public dataset and the program output to  stdout and stderr is 
+available to him/her.
+<br>
+<a href="https://cw.felk.cvut.cz/brute/data/ae/release/2021z_b4m33pal/pal2021/evaluation/getdata.php?task=utilitypipes&amp;item=datapub.zip"><b>Link to public data set</b></a>
+</p>
+
+</div>
+
+
+
+
+</body></html>
