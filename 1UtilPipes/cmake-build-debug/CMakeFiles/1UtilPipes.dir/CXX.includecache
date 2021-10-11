@@ -6,9 +6,17 @@
 
 #IncludeRegexTransform: 
 
-/home/japaw/Codes/PAL/1UtilPipes/main.cpp
+/home/japaw/Codes/B4M33PAL/1UtilPipes/main.cpp
 iostream
 -
+iomanip
+-
 vector
+-
+queue
+-
+functional
+-
+utility
 -
 

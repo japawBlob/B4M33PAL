@@ -54,10 +54,10 @@ RM = /snap/clion/164/bin/cmake/linux/bin/cmake -E rm -f
 EQUALS = =
 
 # The top-level source directory on which CMake was run.
-CMAKE_SOURCE_DIR = /home/japaw/Codes/PAL/1UtilPipes
+CMAKE_SOURCE_DIR = /home/japaw/Codes/B4M33PAL/1UtilPipes
 
 # The top-level build directory on which CMake was run.
-CMAKE_BINARY_DIR = /home/japaw/Codes/PAL/1UtilPipes/cmake-build-debug
+CMAKE_BINARY_DIR = /home/japaw/Codes/B4M33PAL/1UtilPipes/cmake-build-debug
 
 #=============================================================================
 # Directory level rules for the build root directory
@@ -81,14 +81,14 @@ clean: CMakeFiles/1UtilPipes.dir/clean
 CMakeFiles/1UtilPipes.dir/all:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/1UtilPipes.dir/build.make CMakeFiles/1UtilPipes.dir/depend
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/1UtilPipes.dir/build.make CMakeFiles/1UtilPipes.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/japaw/Codes/PAL/1UtilPipes/cmake-build-debug/CMakeFiles --progress-num=1,2 "Built target 1UtilPipes"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/japaw/Codes/B4M33PAL/1UtilPipes/cmake-build-debug/CMakeFiles --progress-num=1,2 "Built target 1UtilPipes"
 .PHONY : CMakeFiles/1UtilPipes.dir/all
 
 # Build rule for subdir invocation for target.
 CMakeFiles/1UtilPipes.dir/rule: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/japaw/Codes/PAL/1UtilPipes/cmake-build-debug/CMakeFiles 2
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/japaw/Codes/B4M33PAL/1UtilPipes/cmake-build-debug/CMakeFiles 2
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 CMakeFiles/1UtilPipes.dir/all
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/japaw/Codes/PAL/1UtilPipes/cmake-build-debug/CMakeFiles 0
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/japaw/Codes/B4M33PAL/1UtilPipes/cmake-build-debug/CMakeFiles 0
 .PHONY : CMakeFiles/1UtilPipes.dir/rule
 
 # Convenience name for target.
