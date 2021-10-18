@@ -14,6 +14,7 @@ struct farm {
 	int homeHub;
 	int name;
 	bool isConnected;
+    int numberOfConnectedFarms;
 	std::vector<int> neighbours;
 };
 
@@ -26,7 +27,7 @@ void printNeighbours(int name);
 
 int main(int argc, char const *argv[]) {
     int numberOfFarms, numberOfPipes;
-    std::cout << "Hello this is my first PAL Program\n";
+    //std::cout << "Hello this is my first PAL Program\n";
     scanf("%i %i", &numberOfFarms, &numberOfPipes);
 
     //struct farm farms [numberOfFarms];
@@ -41,6 +42,7 @@ int main(int argc, char const *argv[]) {
     struct farm temp_farm = {99999, -1, -1, false};
     for (int i = 0; i < numberOfFarms; ++i) {
         temp_farm.name = i;
+        temp_farm.isConnected = false;
         farms.push_back(temp_farm);
     }
 
@@ -63,7 +65,8 @@ int main(int argc, char const *argv[]) {
         scanf("%i", &newHub);
         farms[newHub].distToHub = 0;
         farms[newHub].homeHub = newHub;
-        farms[newHub].isConnected = true;
+        //farms[newHub].isConnected = true;
+        farms[newHub].numberOfConnectedFarms = 0;
         hubs.push_back(newHub);
     }
     /*for (int i = 0; i < numberOfHubs; ++i) {
@@ -86,46 +89,78 @@ int main(int argc, char const *argv[]) {
             //std::cout << "pop " << currentNode.first << " " << currentNode.second << "\n";
             for (int neighbour: farms[currentFarm.second].neighbours) {
                 if (farms[neighbour].distToHub > currentFarm.first + map[neighbour][currentFarm.second]) {
-                    /*if (farms[neighbour].homeHub == -2) {
+                    if (farms[neighbour].homeHub == -2) {
                         disconnectedFarms--;
-                    }*/
+                    } else if (farms[neighbour].homeHub != -1){
+                        farms[farms[neighbour].homeHub].numberOfConnectedFarms--;
+                    }
                     farms[neighbour].homeHub = currentHub;
-                    farms[neighbour].isConnected = true;
+                    farms[currentHub].numberOfConnectedFarms++;
+                    //farms[neighbour].isConnected = true;
+
                     farms[neighbour].distToHub = currentFarm.first + map[neighbour][currentFarm.second];
                     prioQueue.push(std::make_pair(farms[neighbour].distToHub, neighbour));
                     continue;
                 }
-                if (farms[neighbour].distToHub == currentFarm.first + map[neighbour][currentFarm.second]) {
-                    /*if (farms[neighbour].homeHub != -2) {
+                if (farms[neighbour].distToHub == currentFarm.first + map[neighbour][currentFarm.second] && farms[neighbour].homeHub != currentHub) {
+                    if (farms[neighbour].homeHub != -2) {
                         disconnectedFarms++;
-                    }*/
+                        farms[farms[neighbour].homeHub].numberOfConnectedFarms--;
+                    }
                     farms[neighbour].homeHub = -2;
-                    farms[neighbour].isConnected = false;
+                    //farms[neighbour].isConnected = false;
                     prioQueue.push(std::make_pair(farms[neighbour].distToHub, neighbour));
                 }
             }
         }
     }
-	for (int i = 0; i < numberOfFarms; ++i){
+    int totalCost = 0;
+    for (int currentHub : hubs) {
+        prioQueue.push(std::make_pair(farms[currentHub].distToHub, currentHub));
+        //for (int i = 0; i < farms[currentHub].numberOfConnectedFarms+1; ++i) {
+        while (!prioQueue.empty()) {
+            auto currentFarm = prioQueue.top();
+            prioQueue.pop();
+            if(farms[currentFarm.second].isConnected){
+                continue;
+            }
+            totalCost += currentFarm.first;
+            farms[currentFarm.second].isConnected = true;
+            for (int neighbour : farms[currentFarm.second].neighbours) {
+                if(!farms[neighbour].isConnected && farms[neighbour].homeHub == currentHub){
+                    prioQueue.push(std::make_pair(map[farms[neighbour].name][currentFarm.second], neighbour));
+                }
+            }
+        }
+    }
+	/*for (int i = 0; i < numberOfFarms; ++i){
 		std::cout << std::setw(2) << i << " ";
 	}
-	std::cout << "\n";
-	for (int i = 0; i < numberOfFarms; ++i){
+	std::cout << "\n";*/
+	/*for (int i = 0; i < numberOfFarms; ++i){
 		std::cout << std::setw(2) << farms[i].distToHub << " ";
 	}
-    std::cout << "\n";
-    for (int i = 0; i < numberOfFarms; ++i){
+    std::cout << "\n";*/
+    /*for (int i = 0; i < numberOfFarms; ++i){
         std::cout << std::setw(2) << farms[i].homeHub << " ";
     }
-	std::cout << "\n";
-    std::cout << disconnectedFarms << "\n";
+	std::cout << "\n";*/
+    /*for (int hub : hubs){
+        std::cout << std::setw(2) << farms[hub].name << " ";
+    }    std::cout << "\n";
+
+    for (int hub : hubs){
+        std::cout << std::setw(2) << farms[hub].numberOfConnectedFarms << " ";
+    }
+    std::cout << "\n";*/
+    std::cout << totalCost << " " << disconnectedFarms << "\n";
     int numberOfDisconections = 0;
-    for(struct farm farmm : farms){
+    /*for(struct farm farmm : farms){
         if(farmm.homeHub == -2){
             numberOfDisconections++;
         }
     }
-    std::cout << numberOfDisconections << "\n";
+    std::cout << numberOfDisconections << "\n";*/
 
 
 /*
