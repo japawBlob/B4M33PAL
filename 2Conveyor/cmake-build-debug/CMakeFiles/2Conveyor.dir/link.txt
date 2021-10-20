@@ -1,0 +1,1 @@
+/usr/bin/c++ -g CMakeFiles/2Conveyor.dir/main.cpp.o -o 2Conveyor 

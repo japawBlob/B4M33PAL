@@ -1,0 +1,290 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html><head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <meta http-equiv="cache-control" content="no-cache">
+  <link rel="stylesheet" type="text/css" href="Problem%20Assignment%20BM33PAL_files/default.html">
+  <title>Problem Assignment BM33PAL</title>
+</head>
+<body>
+ <div class="main">
+
+<h2><font color="blue">Conveyor Reconfigurations</font></h2>
+<p align="justify">
+
+
+The chemical factory, in this problem, consists of processing points and conveyors.
+For simplicity, the processing points are called just points, throughout this text.
+Each conveyor connects two points, there may be more conveyors connected to a node.
+<br>
+
+In a point, a chemical is processed, and then, depending on a production process, it can be
+moved to another point for additional processing.
+Only the conveyors are used for movement of the chemicals.
+<br>
+<br>
+
+Some of the points have an additional function as dedicated source points where
+chemicals are stocked during the day.
+The factory is organized in such way that whenever a chemical is needed in a particular point,
+there is at least one source point from which the chemical can be transported via one or more conveyors to
+that particular point.
+
+One of the points, not necessarily a source point, serves as so-called central store.
+Each morning,  each of the source points receives one package of chemicals which is transported to
+the source point from the central store.  The package contains all chemicals used in the factory.
+
+<br>
+<br>
+
+Transporting the packages from the central store to the source points
+is a demanding process. Each of the conveyors is optimized for movement in only one preferred direction.
+In order for the packages to reach the source points, some of the conveyors have to be
+reconfigured to run temporarily in the opposite direction.
+Reconfiguration of a conveyor is a costly process and it considerably
+shortens the lifetime of the conveyor.
+To worsen the matters even further, any conveyor has to be reconfigured separately
+for each package which is travelling in the oposite direction on that conveyor.
+<br>
+<br>
+Fortunately, any of the points in the factory can be used as a source point.
+Also, it is not prescribed which conveyors are to be used in the transportation of the package and also it is not prescribed
+through which other points a package is to be transported before it reaches its assigned source point.
+<br>
+It turns out that a careful choice of the source points and the conveyors through which the packages travel
+can minimize the number of reconfigurations in the morning.
+
+<br>
+<br>
+To be able to tackle the problem in more systematic way, let us define some terminology.
+<br>
+<br>
+
+
+A point <i>y</i> is <b>accessible</b> from a point <i>x</i> if a chemical or a package can be transported from
+<i>x</i> to <i>y</i> without reconfiguration of a any conveyor.
+<br>
+A set X of points is called a <b>covering</b> set if each point in the factory is accessible from at least one
+point in X. (It does not matter from which point or points in X.)
+<br>
+
+The <b>difficulty of a point</b> P is the minimum possible number of reconfigurations which have to be made
+when a package is transported from the central store to P.
+<br>
+
+The <b>difficulty of a set</b> of points is the sum of difficulties of all points in the set.<br>
+We suppose that each point is accessible from itself.
+
+<br>
+<br>
+Note that the minimum necessary number of reconfigurations in the morning is equal to the minimum possible difficulty
+of a covering set of nodes.
+
+
+</p><table width="700" border="0" align="center">
+   <tbody><tr>
+   <td align="center">
+   <img style="width=&quot;380px&quot;" src="Problem%20Assignment%20BM33PAL_files/getdata.php" height="263px">
+   <!---
+   <img style=width="380px" height= "263px" src="img1.png" />
+   -->
+
+<br><br>
+<b>Figure 1.</b> Scheme of points and conveyors in the factory. A 
+conveyor is depicted as an arrow in the preferred direction of the 
+conveyor. The point
+in which the central store is located is highlighted.  There are 4 
+source points in any solution to the problem. Those are points 1, 8, any
+ of points
+0,2,3 and any of points 13, 14, 15. The number of reconfigurations is 
+11. The conveyors 1-4, 3-4, 8-9, 9-10, 10-11, 15-16
+are to be reconfigured once. The conveyor 4-5 has to be reconfigure two 
+times and the conveyor 11-16 has to be reconfigured three times. There 
+are also other ways to reconfigure the conveyors but the total number of
+ reconfigurations is always at least 11. 
+
+</td>
+</tr>
+</tbody></table>
+
+
+<h3><font color="blue">The task</font></h3>
+
+<p align="justify">
+You are given the preferred direction for each conveyor in the factory. Also, you are given a location of the central store.
+Find the minimum possible difficulty of a covering set of nodes.
+</p><hr>
+
+
+<h3><font color="blue">Input</font></h3>
+<p align="justify">
+The first input line contains three positive integers <i>N</i>, <i>M</i>, <i>C</i>, separated by spaces, where
+<i>N</i> is the number of points in the factory, <i>M</i> is the number of conveyors in the factory
+and <i>C</i> is the label of the point where the central store is located.
+The points are labeled 0, 1, 2, ..., <i>N</i>−1.
+<br>
+Next, there are <i>M</i> input lines, each line represents one conveyor.
+The conveyor is listed as a pair of integers separated by space, the integers represent
+the labels of the points connected by the conveyor, the preferred direction of the conveyor is from the
+first listed point to the second one.
+<br>
+The conveyors in the list are given in arbitrary order.
+<br>
+It holds, 4 ≤ <i>N</i> ≤ 10<sup>6</sup>, <i>N</i>−1 ≤ <i>M</i> ≤ 7×10<sup>6</sup>.
+<br>
+
+
+</p>                                                              MRSC
+
+<h3><font color="blue">Output</font></h3>
+<p align="justify">
+The output contains one text line with one integer equal to the minimum difficulty of
+a covering set of points in the factory.  <br>
+It is guaranteed that a covering set exists for each input data.
+</p>
+
+
+
+
+<center>
+<table width="90%">
+	<colgroup><col width="20%">
+	<col width="5%">
+	<col width="30%">
+	<col width="5%">
+	<col width="30%">
+    </colgroup><tbody><tr>
+
+
+<td valign="top">
+<h3><font color="blue">Example 1</font></h3>
+<b>Input</b><br>
+<pre>17 21 16
+0 3
+1 4
+2 0
+3 2
+3 4
+4 5
+5 6
+6 7
+8 9
+9 10
+10 11
+14 13
+13 15
+15 14
+15 16
+16 12
+7 12
+4 10
+11 5
+11 16
+12 6
+</pre>
+
+
+<b>Output</b><br>
+<pre>11
+</pre>
+
+The data of Example 1 is depicted in Figure 1.
+
+</td><td>
+
+</td><td valign="top">		
+<h3><font color="blue">Example 2</font></h3>
+<b>Input</b><br>
+<pre>8 7 4
+0 4
+0 5
+1 5
+2 5
+2 6
+3 6
+3 7
+</pre>
+
+
+<b>Output</b><br>
+<pre>8
+</pre>
+
+
+
+</td>
+
+
+
+<td valign="top">
+<h3><font color="blue">Example&nbsp;3</font></h3>
+<b>Input</b><br>
+<pre>11 13 9
+0 1
+3 4
+0 5
+5 6
+6 0
+6 7
+7 2
+2 8
+8 7
+8 9
+9 4
+4 10
+10 9
+</pre>
+
+
+<b>Output</b><br>
+
+<pre>3
+</pre>
+
+
+</td>
+
+    </tr>
+</tbody></table>
+</center>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<hr>
+<h3><font color="blue">Public data</font></h3>
+<p align="justify">
+The public data set is intended for easier debugging and approximate 
+program correctness checking. The public data set is stored also in the 
+upload system and each time a student submits a solution it is run on 
+the public dataset and the program output to  stdout and stderr is 
+available to him/her.
+<br>
+<a href="https://cw.felk.cvut.cz/brute/data/ae/release/2021z_b4m33pal/pal2021/evaluation/getdata.php?task=conveyors&amp;item=datapub.zip"><b>Link to the public data set</b></a>
+</p>
+
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+</body></html>
