@@ -76,32 +76,51 @@ int main (){
     }
 
     std::priority_queue<std::pair<int, int>, std::vector<std::pair<int, int>>, std::greater<std::pair<int, int>>> prioQueue;
-
-    prioQueue.push(std::make_pair(0,centralStorePoint));
     points[centralStorePoint].cost = 0;
-    int totalCost = 0;
-    while(!prioQueue.empty()){
+    prioQueue.push(std::make_pair(0,centralStorePoint));
+    while (!prioQueue.empty()) {
         auto currentNode = prioQueue.top();
         prioQueue.pop();
-        //
-        if(points[currentNode.second].visited){
-            continue;
-        }
-        //totalCost += currentNode.first;
         points[currentNode.second].visited = true;
         for (int neighbour : points[currentNode.second].neighbourPoints) {
-            if (!points[neighbour].visited) {
-                points[neighbour].cost = currentNode.first;
-                prioQueue.push(std::make_pair(currentNode.first, neighbour));
+            if (points[neighbour].cost > points[currentNode.second].cost) {
+                points[neighbour].cost = points[currentNode.second].cost;
+                prioQueue.push(std::make_pair(points[neighbour].cost, neighbour));
             }
         }
         for (int neighbour : points[currentNode.second].childOf) {
-            if (!points[neighbour].visited/*points[neighbour].cost > currentNode.first+1*/) {
-                points[neighbour].cost = currentNode.first+1;
+            if (points[neighbour].cost > points[currentNode.second].cost + 1) {
+                points[neighbour].cost = points[currentNode.second].cost+1;
                 prioQueue.push(std::make_pair(points[neighbour].cost, neighbour));
             }
         }
     }
+//
+//    prioQueue.push(std::make_pair(0,centralStorePoint));
+//    points[centralStorePoint].cost = 0;
+//    int totalCost = 0;
+//    while(!prioQueue.empty()){
+//        auto currentNode = prioQueue.top();
+//        prioQueue.pop();
+//        //
+//        if(points[currentNode.second].visited){
+//            continue;
+//        }
+//        //totalCost += currentNode.first;
+//        points[currentNode.second].visited = true;
+//        for (int neighbour : points[currentNode.second].neighbourPoints) {
+//            if (!points[neighbour].visited) {
+//                points[neighbour].cost = currentNode.first;
+//                prioQueue.push(std::make_pair(currentNode.first, neighbour));
+//            }
+//        }
+//        for (int neighbour : points[currentNode.second].childOf) {
+//            if (!points[neighbour].visited/*points[neighbour].cost > currentNode.first+1*/) {
+//                points[neighbour].cost = currentNode.first+1;
+//                prioQueue.push(std::make_pair(points[neighbour].cost, neighbour));
+//            }
+//        }
+//    }
     /*for (auto point : points) {
         std::cout << point.index << " ";
     }std::cout << "\n";*/
