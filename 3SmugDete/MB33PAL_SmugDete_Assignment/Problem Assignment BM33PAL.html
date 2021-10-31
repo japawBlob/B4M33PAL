@@ -1,0 +1,307 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html><head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <meta http-equiv="cache-control" content="no-cache">
+  <link rel="stylesheet" type="text/css" href="Problem%20Assignment%20BM33PAL_files/default.html">
+  <title>Problem Assignment BM33PAL</title>
+</head>
+<body>
+ <div class="main">
+
+<h2><font color="blue">Smugglers vs Detectives</font></h2>
+<p align="justify">
+
+
+The detectives from law enforcement company Catch&amp;Jail Ltd. investigate a group of smugglers.
+The detectives compiled an investigation list of these individuals.
+Before they crack down on the suspects  they want to extract as much knowledge as possible from the
+information already available to the company.
+<br>
+A new criminal syndicate operates in the area and their people are organized into so called packs.
+The detectives are sure there are members of two packs in their list of suspects.
+<br>
+<br>
+
+The following information is known to the detectives.
+<br>
+<br>
+</p><ul>
+<li>Any two members of the syndicate are either connected or not. The 
+pair of members who are connected communicate regularly and know each 
+other, the pair who is not connected does not communicate, and the two 
+individuals do not meet each other at all.<br>
+</li><li>The structure of all packs is identical, in the sense described below.<br>
+</li><li>No person can be a member of two or more packs.<br>
+</li><li>A pack is connected. It means that some members of the pack 
+might not be connected, however there is a
+always a sequence of connections which leads from a member of the pack 
+to any other member of the same pack.
+A sequence of connections is a sequence of persons P1, P2 P3, P4, ..., 
+etc,  such that there
+is a connection between P1 and P2, a connection between P2 and P3, 
+between P3 and P4 etc. There can be even more than one sequence of 
+connections between two members of a pack.<br>
+</li><li>All connections between the pairs of individuals in the detectives' list.<br>
+</li><li>The number <i>P</i> of members of a pack and the number <i>C</i> of all connections between the members of a pack.
+</li></ul>
+
+Identity of pack structure. <br>
+Let there be two packs. Whenever members of one pack  are listed in an 
+arbitrary but fixed order then the members of the other pack can be 
+listed in such order that the following is true:
+<ul>
+<li>For any two different positions, say <i>p</i><sub>1</sub> and <i>p</i><sub>2</sub> in the first list, it holds
+<br>
+<i>the pair of members of the first pack at positions <i>p</i><sub>1</sub> and <i>p</i><sub>2</sub> are connected if and only if the pair of members of the
+second pack at the same positions in the other list is connected too. </i>
+</li></ul>
+
+<br>
+<br>
+
+The detectives hope they can identify two packs in their list of suspects.
+However, because of the incomplete knowledge, they first need to produce a set of all possible pairs
+of packs in their investigation list.
+
+<br>
+
+<table width="700" border="0" align="center">
+   <tbody><tr>
+   <td align="center">
+   <img style="width=&quot;700px&quot;" src="Problem%20Assignment%20BM33PAL_files/getdata.php" height="387px">
+   <!---
+   <img style=width="700px" height= "387px" src="img1.png" />
+   -->
+
+<br><br>
+<b>Figure 1.</b> Schemes of connections between pairs of suspects in the
+ investigation list. In case a), the list contains
+8 individuals with 9 connections between some of them.  In case b), the 
+list contains
+14 individuals with 19 connections between some of them. The smaller 
+highlighted schemes, in each of the cases, present all possible pairs of
+ packs in the given list.  The members of the packs are shown as black 
+dots and the connections between them are shown as thick lines. The 
+values of <i>P</i> and  <i>C</i>, respectively,  are  3 and 2 in case a) and 4 and 4 in case b). The schemes correspond to Examples 1 and 2 below.
+
+</td>
+</tr>
+</tbody></table>
+
+
+<h3><font color="blue">The task</font></h3>
+
+<p align="justify">
+You are given a list of all pairs of smugglers who are mutually connected. Also, you are given the size of the smugglers
+pack and the number of connections in a pack. Determine all possible pairs of packs in the given list.
+</p><hr>
+
+
+<h3><font color="blue">Input</font></h3>
+<p align="justify">
+The first input line contains four positive integers <i>N</i>, <i>M</i>, <i>P</i>, <i>C</i>, where
+<i>N</i> is the number of smugglers in the list,  <i>M</i> is the number of connections in the list,
+<i>P</i> is the pack size and <i>C</i> is the number of connections in a pack.
+For simplicity, the smugglers are labeled 0, 1, 2, ..., <i>N</i>−1.
+<br>
+Next, there are <i>M</i> input lines, each line represents one connection between two smugglers.
+The connection is listed as a pair of integers separated by space, the integers represent
+the labels of the smugglers in the pair.
+<br>
+The list of connections and also each particular connection are given in arbitrary order.
+<br>
+The following limits hold:  4 ≤ <i>N</i> ≤ 30,  <i>N</i>−1 ≤ <i>M</i> ≤ 100,
+3 ≤ <i>P</i> ≤ 7, 2 ≤ <i>C</i> ≤ 10,
+<br>
+
+
+</p>
+
+<h3><font color="blue">Output</font></h3>
+<p align="justify">
+The output contains one or more text lines. Each line  contains a possible pair of packs in the  investigation list.<br>
+The pack which contains the member with the lowest label is listed first on the line,
+the other pack follows. A list of a pack is a sequence of the labels of its members sorted in ascending order.<br>
+The values on a line are separated by spaces.
+The lines are sorted in ascending lexicographical order.<br>
+There is always at least one possible pair of packs in the  
+investigation list. The number of possible pair of packs is at most 
+5000.
+
+
+
+
+</p>
+
+
+
+
+<center>
+<table width="90%">
+	<colgroup><col width="20%">
+	<col width="5%">
+	<col width="30%">
+	<col width="5%">
+	<col width="30%">
+    </colgroup><tbody><tr>
+
+
+<td valign="top">
+<h3><font color="blue">Example 1</font></h3>
+<b>Input</b><br>
+<pre>8 9 3 2
+0 1
+0 2
+1 2
+2 3 
+3 4
+4 5
+5 6
+6 7
+7 3
+</pre>
+
+
+<b>Output</b><br>
+<pre>0 2 3 4 5 6
+0 2 3 5 6 7
+1 2 3 4 5 6
+1 2 3 5 6 7
+2 3 4 5 6 7
+2 3 7 4 5 6
+</pre>
+
+The data of Example 1 is depicted in Figure 1a).
+
+</td><td>
+
+</td><td valign="top">		
+<h3><font color="blue">Example 2</font></h3>
+<b>Input</b><br>
+<pre>14 19 4 4
+0 1
+0 5
+1 5
+2 3
+2 7
+3 7
+4 5
+5 6
+6 7
+7 8
+9 10
+10 11
+11 12
+12 13
+4 9
+5 10
+6 11
+7 12
+8 13
+</pre>
+
+
+<b>Output</b><br>
+<pre>0 1 4 5 2 3 6 7
+0 1 4 5 2 3 7 8
+0 1 4 5 2 3 7 12
+0 1 5 6 2 3 7 8
+0 1 5 6 2 3 7 12
+0 1 5 10 2 3 6 7
+0 1 5 10 2 3 7 8
+0 1 5 10 2 3 7 12
+4 5 9 10 6 7 11 12
+4 5 9 10 7 8 12 13
+5 6 10 11 7 8 12 13
+</pre>
+
+
+The data of Example 2 is depicted in Figure 1b).
+</td>
+
+
+
+<td valign="top">
+<h3><font color="blue">Example&nbsp;3</font></h3>
+<b>Input</b><br>
+<pre>6 15 3 3
+0 1
+0 2
+0 3
+0 4
+0 5
+1 2
+1 3
+1 4
+1 5
+2 3
+2 4
+2 5
+3 4
+3 5
+4 5
+</pre>
+
+
+<b>Output</b><br>
+
+<pre>0 1 2 3 4 5
+0 1 3 2 4 5
+0 1 4 2 3 5
+0 1 5 2 3 4
+0 2 3 1 4 5
+0 2 4 1 3 5
+0 2 5 1 3 4
+0 3 4 1 2 5
+0 3 5 1 2 4
+0 4 5 1 2 3
+</pre>
+
+
+</td>
+
+    </tr>
+</tbody></table>
+</center>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<hr>
+<h3><font color="blue">Public data</font></h3>
+<p align="justify">
+The public data set is intended for easier debugging and approximate 
+program correctness checking. The public data set is stored also in the 
+upload system and each time a student submits a solution it is run on 
+the public dataset and the program output to  stdout and stderr is 
+available to him/her.
+<br>
+<a href="https://cw.felk.cvut.cz/brute/data/ae/release/2020z_b4m33pal/pal2020/evaluation/getdata.php?task=smugglers&amp;item=datapub.zip"><b>Link to the public data set</b></a>
+</p>
+
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+</body></html>
