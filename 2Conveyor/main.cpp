@@ -27,57 +27,38 @@ std::stack<int> tarjanStack;
 int recuTarjan(int currentPoint);
 
 int main (){
-    //std::cout << "hello this is my second pal program\n";
-
     int numberOfPoints, numberOfConveyors, centralStorePoint;
 
     scanf("%i %i %i", &numberOfPoints, &numberOfConveyors, &centralStorePoint);
 
     struct point newPoint;
     points.assign(numberOfPoints, newPoint);
+    for (int i = 0; i < numberOfPoints; ++i) {
+        points[i].sscMember = -1;
+        points[i].index = 0;
+        points[i].sscResolved = false;
+        points[i].inStack = false;
+        points[i].visited = false;
+        points[i].cost = 999999;
+        points[i].lowLink = 99999999;
+    }
 
     for (int i = 0; i < numberOfConveyors; ++i) {
         int from, to;
         scanf("%i %i", &from, &to);
-        points[from].sscMember = -1;
-        points[from].index = 0;
-        points[from].sscResolved = false;
-        points[from].inStack = false;
-        points[from].visited = false;
-        points[from].cost = 999999;
-        points[from].lowLink = 99999999;
+
         points[from].neighbourPoints.push_back(to);
         points[to].childOf.push_back(from);
     }
-
-
-    int lowLink = 1;
+    /// Computing SSCs using Tarjan algorithm and replacing them with single points
     for (int i = 0; i < numberOfPoints; ++i) {
-        /*if(!points[i].sscResolved){
-            points[i].lowLink = lowLink++;
-            tarjanStack.push(i);
-            while (!tarjanStack.empty()){
-                int currentPoint = tarjanStack.top();
-                int lowestNeighbourNumber = 999999;
-                for (int neighbour : points[currentPoint].neighbourPoints) {
-                    if(!points[neighbour].sscResolved){
-                        if (points[neighbour].lowLink <= points[currentPoint].lowLink){
-                            lowestNeighbourNumber = points[neighbour].lowLink;
-                            continue;
-                        }
-                        points[neighbour].lowLink = lowLink++;
-                        tarjanStack.push(neighbour);
-                    }
-                }
-            }
-        }*/
-        recuTarjan(i/*, tarjanStack*/);
-
+        recuTarjan(i);
     }
-
+    /// Using pair where the first element is cost and second element is point name
     std::priority_queue<std::pair<int, int>, std::vector<std::pair<int, int>>, std::greater<std::pair<int, int>>> prioQueue;
     points[centralStorePoint].cost = 0;
     prioQueue.push(std::make_pair(0,centralStorePoint));
+    /// Dijkstra
     while (!prioQueue.empty()) {
         auto currentNode = prioQueue.top();
         prioQueue.pop();
@@ -95,99 +76,19 @@ int main (){
             }
         }
     }
-//
-//    prioQueue.push(std::make_pair(0,centralStorePoint));
-//    points[centralStorePoint].cost = 0;
-//    int totalCost = 0;
-//    while(!prioQueue.empty()){
-//        auto currentNode = prioQueue.top();
-//        prioQueue.pop();
-//        //
-//        if(points[currentNode.second].visited){
-//            continue;
-//        }
-//        //totalCost += currentNode.first;
-//        points[currentNode.second].visited = true;
-//        for (int neighbour : points[currentNode.second].neighbourPoints) {
-//            if (!points[neighbour].visited) {
-//                points[neighbour].cost = currentNode.first;
-//                prioQueue.push(std::make_pair(currentNode.first, neighbour));
-//            }
-//        }
-//        for (int neighbour : points[currentNode.second].childOf) {
-//            if (!points[neighbour].visited/*points[neighbour].cost > currentNode.first+1*/) {
-//                points[neighbour].cost = currentNode.first+1;
-//                prioQueue.push(std::make_pair(points[neighbour].cost, neighbour));
-//            }
-//        }
-//    }
-    /*for (auto point : points) {
-        std::cout << point.index << " ";
-    }std::cout << "\n";*/
     int hmmYesCost = 0;
+    /// Computing cost of end points
     for (auto point : points) {
         if (point.visited && point.childOf.empty()){
-            //std::cout << " Hmm yes cost: "<< hmmYesCost << "\n";
             hmmYesCost+=point.cost;
         }
     }
-    //std::cout << " Hmm yes cost: "<< hmmYesCost << "\n";
     std::cout << hmmYesCost << "\n";
 
-    //std::cout << " Total cost: "<< totalCost << "\n";
-
-
-
-
-
-/*
-    for (int i = 0; i < numberOfPoints; ++i) {
-        std::cout << i << "   ";
-        for (int j = 0; j < points[i].neighbourPoints.size(); ++j) {
-            std::cout << points[i].neighbourPoints[j] << " ";
-        }
-        std::cout << std::endl;
-    }
-*/
-    /*for (int i = 0; i < numberOfPoints; ++i) {
-        std::cout << i << "   ";
-        for (int j = 0; j < points[i].neighbourPoints.size(); ++j) {
-            std::cout << points[i].neighbourPoints[j] << " ";
-        }
-        std::cout << std::endl;
-    }
-
-    for (int i = 0; i < numberOfPoints; ++i) {
-        std::cout << i << " " << points[i].sscMember << std::endl;
-    }*/
-    /*int i = 0;
-    for (auto vec : SSCs) {
-        //std::cout << i++ << "  \n";
-        for (auto blob : vec) {
-            std::cout << blob << " ";
-        }
-        std::cout << "\n";
-    }*/
-    /*for (int i = 0; i < points.size(); ++i) {
-        std::cout << points[i].sscMember << " ";
-    } std::cout << std::endl;
-    std::cout << "-----------------------------------------------------------------------------" << std::endl;
-    for (int i = 0; i < points.size(); ++i) {
-        std::cout << i << "\n";
-        std::cout << "Neighbours:" << "\n";
-        for (int j = 0; j < points[i].neighbourPoints.size(); ++j) {
-            std::cout << points[i].neighbourPoints[j] << " ";
-        } std::cout << "\n";
-        std::cout << "Children:" << "\n";
-        for (int j = 0; j < points[i].childOf.size(); ++j) {
-            std::cout << points[i].childOf[j] << " ";
-        } std::cout << "\n";
-    } std::cout << std::endl;
-*/
     return 0;
 }
 
-int recuTarjan(int currentPoint/*, std::stack<int>& tarjanStack*/){
+int recuTarjan(int currentPoint){
     static int index = 0;
     points[currentPoint].lowLink = index;
     points[currentPoint].index = index;
@@ -197,7 +98,7 @@ int recuTarjan(int currentPoint/*, std::stack<int>& tarjanStack*/){
 
     for (int neighbour : points[currentPoint].neighbourPoints){
         if (points[neighbour].index == 0){
-            recuTarjan(neighbour/*, tarjanStack*/);
+            recuTarjan(neighbour);
             points[currentPoint].lowLink = std::min(points[currentPoint].lowLink, points[neighbour].lowLink);
         } else if (points[neighbour].inStack) {
             points[currentPoint].lowLink = std::min(points[currentPoint].lowLink, points[neighbour].index);
@@ -217,58 +118,53 @@ int recuTarjan(int currentPoint/*, std::stack<int>& tarjanStack*/){
             points[riley].inStack = false;
             SSCs[numberOfSSCs].push_back(riley);
         } while (currentPoint != riley);
-       if (SSCs[numberOfSSCs].size() > 1){
-           /*std::cout << numberOfSSCs << " *****************\n";
-           for (int i = 0; i < SSCs[numberOfSSCs].size(); ++i) {
-               std::cout << points[SSCs[numberOfSSCs][i]].sscMember << " ";
-           } std::cout << "\n****************\n";*/
 
-           /*std::cout << currentPoint << "\n";
-           std::cout << numberOfSSCs << "\n";*/
-            auto newMainNode = SSCs[numberOfSSCs][0];
-            std::unordered_set<int> newNeighbours;
+        /// Replacing SSCs with single point
+        if (SSCs[numberOfSSCs].size() > 1){
+           auto newMainNode = SSCs[numberOfSSCs][0];
+            //std::unordered_set<int> newNeighbours;
+            std::vector<int> newNeighbours;
             std::unordered_set<int> newChildrenOf;
             for (auto currentPoint : SSCs[numberOfSSCs]) {
                 for (auto neighbour : points[currentPoint].neighbourPoints) {
                     if(points[neighbour].sscMember != numberOfSSCs){
-                        newNeighbours.insert(neighbour);
-                        auto it = find(points[neighbour].childOf.begin(), points[neighbour].childOf.end(), currentPoint);
-                        int index = it - points[neighbour].childOf.begin();
-                        points[neighbour].childOf[index] = newMainNode;
+                        //newNeighbours.insert(neighbour);
+                        /*bool allreadyIn = false;
+                        for (int i = 0; i < newNeighbours.size(); ++i) {
+                            if(newNeighbours[i] == neighbour){
+                                allreadyIn = true;
+                                break;
+                            }
+                        }*/
+                        //if(!allreadyIn){
+                            newNeighbours.push_back(neighbour);
+                        //}
+                        for (unsigned i = 0; i < points[neighbour].childOf.size(); ++i) {
+                            if(points[neighbour].childOf[i] == currentPoint){
+                                points[neighbour].childOf[i] = newMainNode;
+                                break;
+                            }
+                        }
                     }
                 }
                 for (auto child : points[currentPoint].childOf) {
                     if(points[child].sscMember != numberOfSSCs){
                         newChildrenOf.insert(child);
-                        auto it = find(points[child].neighbourPoints.begin(), points[child].neighbourPoints.end(), currentPoint);
-                        int index = it - points[child].neighbourPoints.begin();
-                        points[child].neighbourPoints[index] = newMainNode;
+                        for (unsigned i = 0; i < points[child].neighbourPoints.size(); ++i) {
+                            if(points[child].neighbourPoints[i] == currentPoint){
+                                points[child].neighbourPoints[i] = newMainNode;
+                                break;
+                            }
+                        }
+
                     }
                 }
             }
-            std::vector<int> newTempNeighbs(newNeighbours.begin(), newNeighbours.end());
-           std::vector<int> newTempChild(newChildrenOf.begin(), newChildrenOf.end());
-           points[newMainNode].neighbourPoints = newTempNeighbs;
-           points[newMainNode].childOf = newTempChild;
-           //points[newMainNode].neighbourPoints.insert(points[newMainNode].neighbourPoints.begin(), newNeighbours.begin(), newNeighbours.end());
-           //points[newMainNode].childOf.insert(points[newMainNode].childOf.begin(), newChildrenOf.begin(), newChildrenOf.end());
-       }
-/*for (int i = 1; i < SSCs[numberOfSSCs].size(); i++) {
-    points[currentPoint].neighbourPoints.insert(points[currentPoint].neighbourPoints.end(), points[i].neighbourPoints.begin(),points[i].neighbourPoints.end());
-}*/
-            /*std::cout << currentPoint << "\n";
-            for (int i : points[currentPoint].neighbourPoints) {
-                std::cout << i << " ";
-            }std::cout << "\n";
-
-            std::unordered_set<int> s;
-            auto end = std::remove_if(points[currentPoint].neighbourPoints.begin(), points[currentPoint].neighbourPoints.end(),
-                                      [&s](int const &i) {
-                                          return !s.insert(i).second;
-                                      });
-
-            points[currentPoint].neighbourPoints.erase(end, points[currentPoint].neighbourPoints.end());*/
-        //}
+            //std::vector<int> newTempNeighbs(newNeighbours.begin(), newNeighbours.end());
+            std::vector<int> newTempChild(newChildrenOf.begin(), newChildrenOf.end());
+            //points[newMainNode].neighbourPoints = newNeighbours;
+            points[newMainNode].childOf = newTempChild;
+        }
         numberOfSSCs++;
     }
     return 0;

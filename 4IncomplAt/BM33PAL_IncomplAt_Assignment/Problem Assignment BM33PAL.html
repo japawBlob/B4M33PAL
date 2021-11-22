@@ -1,0 +1,185 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html><head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <meta http-equiv="cache-control" content="no-cache">
+  <link rel="stylesheet" type="text/css" href="Problem%20Assignment%20BM33PAL_files/default.html">
+  <title>Problem Assignment BM33PAL</title>
+</head>
+<body>
+ <div class="main">
+
+
+<h2><font color="blue">Incomplete Automaton</font></h2>
+
+<p align="justify">
+
+</p>
+
+<h3><font color="blue">The task</font></h3>
+<p align="justify">
+You are given a deterministic finite automat, however, information on 
+the initial and final states is missing. Instead of it, a set of words 
+accepted
+by the automaton (called positive examples) and a set of words rejected 
+by the automaton (called negative examples) are provided. For each final
+ state q,
+the positive examples contain at least one word which translates the 
+initial state to state q. The number of final states is also known.
+Your task is to determine which choices of the initial and final states 
+are admissible with respect to the positive and negative examples.
+</p>
+
+<hr>
+
+<h3><font color="blue">Input</font></h3>
+<p align="justify">
+The first row consists of six integers S, A, F, P, N, L separated by a 
+space. The values represent the number of states of the automaton (S),
+size of the input alphabet (A), the number of final states (F), the 
+number of positive examples (P), the number of negative examples (N) and
+ 
+a (uniform) length of each example (L).
+States of the automaton are denoted by numbers 0,..,S−1. The input 
+alphabet consists of the first A characters from the range 'a',..,'z'.
+It holds 2≤A≤26 and 1≤F≤S.
+The first row is followed by S lines defining the transition function. 
+Each line contains A+1 integers separated by a space. The first number 
+is
+a state q for which the line defines all transitions: the i+1-st number 
+is the state which the automaton enters from q after reading the i-th 
+character
+of the input alphabet.
+All this is followed by P lines with positive examples, immediately 
+followed by N lines with negative examples. Each of the examples is a 
+word of length L.
+<br>
+<br>
+It is known that all the examples were generated using the following algorithm. Choose at most log L indices from the range 
+1,..,L-√<span style="text-decoration: overline">L</span>. At these positions, generate character 'a' or 'b', each of them with probability 1/2.
+Set the other characters of the prefix of length L-√<span style="text-decoration: overline">L</span> to 'a'. Generate randomly 
+the remaining characters of the suffix of length
+√<span style="text-decoration: overline">L</span>. In this case, each character is generated from the whole input alphabet, with the
+uniform distribution. 
+<br>
+<br>
+Value of S does not exceed 300, value of F does not exceed 30, value of P does not exceed 2000, value of N does not exceed 5000
+and value of L does not exceed 30000.
+
+</p>
+
+<h3><font color="blue">Output</font></h3>
+<p align="justify">
+The output is formed of several lines. Each line represents one possible
+ choice of the initial and final states: there are F+1 numbers, 
+separated
+by a space. The first value is the initial state. The next F values are 
+final states arranged in ascending order.
+All the output lines are arranged lexicographically in ascending order 
+as integer vectors of dimension F+1. Each possible solution is contained
+in the output exactly once.
+</p>
+
+<table width="690" border="0" align="center">
+<tbody><tr>
+<td align="center">
+<img style="width: 541px; height: 235px;" src="Problem%20Assignment%20BM33PAL_files/getdata.php">
+<!--img style="width: 541px; height: 235px;" src="img1.png" /-->
+<br>
+  <br>
+
+<b>Figure 1.</b> Automata from Example 1 and 2.
+  </td>
+</tr>
+</tbody></table>
+
+<h3><font color="blue">Example 1</font></h3>
+<b>Input</b><br>
+<pre>4 2 2 2 2 9
+0 1 3
+1 1 3
+2 2 0
+3 2 0
+aaaaaaaba
+abaaaabbb
+aaaaaabbb
+aaaaabbaa
+</pre>
+
+<b>Output</b><br>
+<pre>0 0 2
+1 0 2
+2 1 3
+3 1 3
+</pre>
+
+The automaton represented by the input is depicted as A<sub>1</sub> in 
+Figure 1. If state 0 is chosen as the initial one, the automaton 
+finishes in
+state 2 when reading the first positive example, in state 0 when reading
+ the second positive example, in state 3 when reading the first negative
+example and in state 1 when reading the second negative example. It is 
+thus necessary to choose 0 and 2 as the final states. Since F=2, there 
+are no
+other final states. This solution is represented by the first line of 
+the output.
+
+<h3><font color="blue">Example 2</font></h3>
+<b>Input</b><br>
+<pre>3 3 2 2 1 7
+0 0 1 2
+1 2 1 0
+2 0 1 2
+aaaaabc
+aaabbac
+aaaabcb
+</pre>
+
+<b>Output</b><br>
+<pre>0 0 2
+1 0 2
+2 0 2
+</pre>
+
+The automaton represented by the input is depicted as A<sub>2</sub> in Figure 1.
+
+<h3><font color="blue">Example 3</font></h3>
+<b>Input</b><br>
+<pre>5 2 3 4 0 6
+0 1 0
+1 2 1
+2 3 1
+3 4 3
+4 0 4
+ababba
+abbabb
+aaaaaa
+aababb
+</pre>
+
+<b>Output</b><br>
+<pre>1 1 2 4
+2 0 3 4
+3 0 1 4
+4 0 1 2
+</pre>
+
+
+<hr>
+<h3><font color="blue">Public data</font></h3>
+<p align="justify">
+The public data set is intended for easier debugging and approximate 
+program correctness checking. The public data set is stored also in the 
+upload system and each time a student submits a solution it is run on 
+the public dataset and the program output to  stdout and stderr is 
+available to him/her.
+<br>
+<a href="https://cw.felk.cvut.cz/brute/data/ae/release/2021z_b4m33pal/pal2021_04/evaluation/getdata.php?task=incompleteautomaton&amp;item=datapub.zip"><b>Link to public data set</b></a>
+</p>
+
+</div>
+
+
+
+
+
+</body></html>
