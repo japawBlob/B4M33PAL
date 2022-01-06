@@ -1,0 +1,122 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html><head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <meta http-equiv="cache-control" content="no-cache">
+  <link rel="stylesheet" type="text/css" href="Problem%20Assignment%20BM33PAL_files/default.html">
+  <title>Problem Assignment BM33PAL</title>
+</head>
+<body>
+ <div class="main">
+
+
+<h2><font color="blue">Non-overlapping matches</font></h2>
+
+We are required to implement special search functionality into a text editor. For a string entered by the user,
+this functionality has to look for similar substrings in the edited text.
+The aim is to find as many such non-overlapping substrings as possible and highlight them all at once.
+
+<p></p>
+
+
+<h3><font color="blue">The task</font></h3>
+<p align="justify">
+
+Given a text <i>T</i>, pattern <i>P</i> and threshold parameter <i>D</i>, find a set <i>S</i> of pairwise disjoint intervals &lt;<i>a</i>, <i>b</i>&gt;,
+where 1 ≤ <i>a</i> ≤ <i>b</i> ≤ |<i>T</i>|, that satisfy:
+
+</p><ul>
+<li>
+For each &lt;<i>a</i>, <i>b</i>&gt; ∈ <i>S</i>, the Levenshtein distance between <i>P</i> and
+<i>T</i>(<i>a</i>)···<i>T</i>(<i>b</i>) is not greater than <i>D</i>.
+</li>
+<li>
+The size of <i>S</i> is largest possible. 
+</li>
+<li>
+There is no other set of pairwise disjoint intervals <i>S</i>′ that fullfil all the above conditions
+(which means, among other things, that |<i>S</i>′|=|<i>S</i>|)
+and cover more characters of <i>T</i> than the intervals in <i>S</i>.
+</li>
+</ul>
+
+Remark: We assume that characters of <i>T</i> are indexed from 1 to |<i>T</i>|. Moreover, <i>T</i>(<i>a</i>)···<i>T</i>(<i>b</i>) is the
+substring of <i>T</i> starting at index <i>a</i> and ending at index <i>b</i>.
+
+<p></p>
+
+<hr>
+
+<h3><font color="blue">Input</font></h3>
+<p align="justify">
+The first input line contains a text <i>T</i>, the second input line contains a pattern <i>P</i>. Both sequences, <i>T</i> and <i>P</i>, are strings over {'a',...,'z'}.
+The third line contains an integer which is the similarity threshold parameter <i>D</i>.
+<br>
+It holds 1 ≤ <i>D</i> ≤ 23, <i>D</i> &lt; |<i>P</i>| ≤ 180, 1 ≤ |<i>T</i>| ≤ 1.1 × 10<sup>6</sup>.
+
+
+</p><h3><font color="blue">Output</font></h3>
+<p align="justify">
+The output is one line containing two integers, <i>M</i> and <i>H</i>, separated by space. <i>M</i> is the number of intervals in an optimal set <i>S</i>
+(i.e., the number of matches to be highlighted in the editor) and <i>H</i> is the number of characters of <i>T</i> that are not covered by any interval of <i>S</i>
+(i.e., the number of characters that will not be highlighted).
+</p>
+
+<h3><font color="blue">Example 1</font></h3>
+<b>Input</b><br>
+<pre>aabbbcabab
+abb
+1
+</pre>
+
+<b>Output</b><br>
+<pre>4 1
+</pre>
+
+The result can be visualized as follows:
+
+<br>
+<br>
+<span style="color:orange">aab</span>|<span style="color:orange">bb</span>|c|<span style="color:orange">ab</span>|<span style="color:orange">ab</span>
+<br>
+<br>
+
+Characters to be highlighted are displayed in orange. Auxiliary 
+characters '|' are added only here to separate matching substrings
+(they are not part of the text in the editor).
+
+
+<h3><font color="blue">Example 2</font></h3>
+<b>Input</b><br>
+<pre>jedevvvede
+jede
+2
+</pre>
+
+<b>Output</b><br>
+<pre>3 1
+</pre>
+
+The result can be visualized as follows:
+
+<br>
+<br>
+<span style="color:orange">je</span>|<span style="color:orange">de</span>|v|<span style="color:orange">vvede</span>
+<br>
+<br>
+
+<hr>
+<h3><font color="blue">Public data</font></h3>
+<p align="justify">
+The public data set is intended for easier debugging and approximate 
+program correctness checking. The public data set is stored also in the 
+upload system and each time a student submits a solution it is run on 
+the public dataset and the program output to  stdout and stderr is 
+available to him/her.
+<br>
+<a href="https://cw.felk.cvut.cz/brute/data/ae/release/2021z_b4m33pal/pal2021_04/evaluation/getdata.php?task=editor&amp;item=datapub.zip"><b>Link to public data set</b></a>
+</p>
+
+</div>
+
+
+</body></html>
