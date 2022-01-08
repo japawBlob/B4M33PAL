@@ -1,0 +1,141 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html><head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <meta http-equiv="cache-control" content="no-cache">
+  <link rel="stylesheet" type="text/css" href="Problem%20Assignment%20BM33PAL_files/default.html">
+  <title>Problem Assignment BM33PAL</title>
+</head>
+<body>
+ <div class="main">
+
+
+<h2><font color="blue">Counting linear congruential generators</font></h2>
+
+<p align="justify">
+A linear congruential generator (LCG) is a triple of integers (<i>A</i>, <i>C</i>, <i>M</i>) used to generate pseudorandom numbers by the formula
+<i>x</i><sub><i>n</i>+1</sub>=(<i>A</i><i>x</i><sub><i>n</i></sub>+<i>C</i>) mod <i>M</i> applied recurrently to a chosen initial value <i>x</i><sub>0</sub>.
+
+</p>
+
+<h3><font color="blue">The task</font></h3>
+<p align="justify">
+
+By the assumption that there are ranges specified for the parameters <i>A</i>, <i>C</i>, <i>M</i>, count the number of full length period LCGs for which
+<i>M</i> is the product of exactly <i>P</i> distinct primes (where <i>P</i> is a given number).
+
+<br>
+<br>
+
+Hint: It might be helpful to use the <a href="https://en.wikipedia.org/wiki/Inclusion%E2%80%93exclusion_principle">inclusion-exclusion principle</a>.
+
+
+</p>
+
+<hr>
+
+<h3><font color="blue">Input</font></h3>
+<p align="justify">
+The input consists of four lines. The first line contains integers <i>A</i><sub>min</sub>, <i>A</i><sub>max</sub>.
+The second line contains integers <i>C</i><sub>min</sub>, <i>C</i><sub>max</sub>. The third line contains integers <i>M</i><sub>min</sub>, <i>M</i><sub>max</sub>.
+Each pair of integers is separated by a space. The fourth line contains an integer <i>P</i>.
+The following limits hold:
+<br>
+1 ≤ <i>A</i><sub>min</sub> ≤ <i>A</i><sub>max</sub> ≤ 3 × 10<sup>11</sup>,
+1 ≤ <i>C</i><sub>min</sub> ≤ <i>C</i><sub>max</sub> ≤ 3 × 10<sup>11</sup>,
+1 ≤ <i>M</i><sub>min</sub> ≤ <i>M</i><sub>max</sub> ≤ 2 × 10<sup>10</sup>,
+<i>M</i><sub>max</sub> ≤ <i>A</i><sub>max</sub>,
+2 ≤ <i>P</i> ≤ 9.
+
+
+</p>
+
+<h3><font color="blue">Output</font></h3>
+<p align="justify">
+The output consists of one line containing integer <i>R</i> which is equal to the number of LCGs (<i>A</i>, <i>C</i>, <i>M</i>)
+that meet the following conditions:
+</p><ul>
+<li>
+<i>A</i><sub>min</sub> ≤ <i>A</i> ≤  <i>A</i><sub>max</sub>,
+</li><li>
+<i>C</i><sub>min</sub> ≤ <i>C</i> ≤  <i>C</i><sub>max</sub>,
+</li>
+<li>
+<i>M</i><sub>min</sub> ≤ <i>M</i> ≤  <i>M</i><sub>max</sub>,
+</li>
+<li>
+<i>M</i> is the product of <i>P</i> distinct primes,
+</li>
+<li>
+(<i>A</i>, <i>C</i>, <i>M</i>) has period of length <i>M</i>.
+</li>
+</ul>
+It holds that <i>R</i> does not exceed 5 × 10<sup>16</sup>.
+<p></p>
+
+<h3><font color="blue">Example 1</font></h3>
+<b>Input</b><br>
+<pre>3 14
+3 6
+2 7
+2
+</pre>
+
+<b>Output</b><br>
+<pre>2
+</pre>
+
+The two feasible LCGs are as follows:
+<ul>
+<li> A=7, C=5, M=6 </li>
+<li> A=13, C=5, M=6 </li>
+</ul>
+
+<h3><font color="blue">Example 2</font></h3>
+<b>Input</b><br>
+<pre>10 126
+20 30
+4 46
+3
+</pre>
+
+<b>Output</b><br>
+<pre>14
+</pre>
+
+The fourteen feasible LCGs are as follows:
+<ul>
+<li>A=31, C=23, M=30</li>
+<li>A=31, C=29, M=30</li>
+<li>A=61, C=23, M=30</li>
+<li>A=61, C=29, M=30</li>
+<li>A=91, C=23, M=30</li>
+<li>A=91, C=29, M=30</li>
+<li>A=121, C=23, M=30</li>
+<li>A=121, C=29, M=30</li>
+<li>A=43, C=23, M=42</li>
+<li>A=43, C=25, M=42</li>
+<li>A=43, C=29, M=42</li>
+<li>A=85, C=23, M=42</li>
+<li>A=85, C=25, M=42</li>
+<li>A=85, C=29, M=42</li>
+</ul>
+
+<hr>
+<h3><font color="blue">Public data</font></h3>
+<p align="justify">
+The public data set is intended for easier debugging and approximate 
+program correctness checking. The public data set is stored also in the 
+upload system and each time a student submits a solution it is run on 
+the public dataset and the program output to  stdout and stderr is 
+available to him/her.
+<br>
+<a href="https://cw.felk.cvut.cz/brute/data/ae/release/2021z_b4m33pal/pal2021_04/evaluation/getdata.php?task=LCGs&amp;item=datapub.zip"><b>Link to public data set</b></a>
+</p>
+
+</div>
+
+
+
+
+
+</body></html>

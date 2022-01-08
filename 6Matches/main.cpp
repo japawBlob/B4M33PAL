@@ -1,6 +1,7 @@
 #include <iostream>
 #include <vector>
 #include <iomanip>
+#include <bits/stdc++.h>
 
 #define NC "\e[0m"
 #define RED "\e[0;31m"
@@ -17,6 +18,7 @@ struct edge {
 struct node {
     int name;
     bool visited;
+    bool connected;
     vector<edge> neighbours;
     int numberOfSubstrings;
     int numberOfLonelyChars;
@@ -51,12 +53,12 @@ vector<vector<int>> levenshtein (){
 void findSubstrings (int startIndex, int endIndex, vector<vector<char>> & substrings){
     int size_i = pattern.size()+1;
     int size_j = endIndex-startIndex+1;
-
+/*
     for (int i = startIndex; i < endIndex; ++i) {
         cout << text[i];
     }
     cout << endl;
-
+*/
     int levMatrix [size_i][size_j];
     for (int i = 0; i < size_i; ++i) {
         levMatrix[i][0] = i;
@@ -77,12 +79,12 @@ void findSubstrings (int startIndex, int endIndex, vector<vector<char>> & substr
             }
         }
     }
-    for (int i = 0; i < size_i; ++i) {
+ /*   for (int i = 0; i < size_i; ++i) {
         for (int j = 0; j < size_j; ++j) {
             cout << levMatrix[i][j] << " ";
         }
         cout << endl;
-    }
+    }*/
     for (int j = 1; j < size_j; ++j) {
         if(levMatrix[size_i-1][j] <= D){
             edge temp {
@@ -93,7 +95,113 @@ void findSubstrings (int startIndex, int endIndex, vector<vector<char>> & substr
             nodes[endIndex-(j-1)-1].neighbours.push_back(temp);
         }
     }
+}
 
+pair<int, int> dfs (int startIndex, bool direct){
+    node * currentNode = &nodes[startIndex];
+    if(currentNode->visited){
+        if(direct){
+            if(!currentNode->connected){
+                return make_pair(currentNode->numberOfSubstrings,currentNode->numberOfLonelyChars-1);
+            } else {
+                pair<int,int> ret = dfs(currentNode->name+1, false);
+                //ret.second += 1;
+                return ret;
+            }
+        }
+        return make_pair(currentNode->numberOfSubstrings,currentNode->numberOfLonelyChars);
+    }
+    currentNode->visited = true;
+    //int trueIndex = -1;
+    //edge e;
+    for(int i = 0; i < currentNode->neighbours.size(); i++){
+        edge e = currentNode->neighbours[i];
+        //if(!nodes[e.to].visited){
+        pair<int,int> ret = dfs(e.to, e.direct);
+
+        if(e.direct){
+            if(ret.first+1 > currentNode->numberOfSubstrings) {
+                currentNode->connected = true;
+                currentNode->numberOfSubstrings = ret.first+1;
+                currentNode->numberOfLonelyChars = ret.second;
+
+            } else if (ret.first+1 == currentNode->numberOfSubstrings && ret.second < currentNode->numberOfLonelyChars){
+                currentNode->connected = true;
+                currentNode->numberOfSubstrings = ret.first+1;
+                currentNode->numberOfLonelyChars = ret.second;
+            }
+        } else {
+            if(ret.first > currentNode->numberOfSubstrings) {
+                currentNode->connected = false;
+                currentNode->numberOfSubstrings = ret.first;
+                currentNode->numberOfLonelyChars = ret.second+1;
+
+            } else if (ret.first == currentNode->numberOfSubstrings && ret.second+1 < currentNode->numberOfLonelyChars){
+                currentNode->connected = false;
+                currentNode->numberOfSubstrings = ret.first;
+                currentNode->numberOfLonelyChars = ret.second+1;
+            }
+        }
+    }
+    /*if(trueIndex != -1){
+        nodes[currentNode->neighbours[trueIndex].to].connected = true;
+        nodes[currentNode->neighbours[trueIndex].from].connected = true;
+    }*/
+    return make_pair(currentNode->numberOfSubstrings,currentNode->numberOfLonelyChars);
+};
+
+pair<int,int> iterativeDFS (int startIndex){
+    stack<int> s;
+    for (int i = 0; i < nodes.size(); ++i) {
+        s.push(i);
+    }
+    while(!s.empty()){
+        node * currentNode =  &nodes[s.top()];
+        s.pop();
+
+        currentNode->visited = true;
+
+        for(int i = 0; i < currentNode->neighbours.size(); i++) {
+            edge e = currentNode->neighbours[i];
+            //if(!nodes[e.to].visited){
+            pair<int,int> ret;
+            if(e.direct){
+                if(!nodes[e.to].connected){
+                    ret = make_pair(nodes[e.to].numberOfSubstrings,nodes[e.to].numberOfLonelyChars-1);
+                } else {
+                    ret = dfs(nodes[e.to].name+1, false);
+                    //ret.second += 1;
+                    //return ret;
+                }
+            } else {
+                ret = make_pair(nodes[e.to].numberOfSubstrings,nodes[e.to].numberOfLonelyChars);
+            }
+            if(e.direct){
+                if(ret.first+1 > currentNode->numberOfSubstrings) {
+                    currentNode->connected = true;
+                    currentNode->numberOfSubstrings = ret.first+1;
+                    currentNode->numberOfLonelyChars = ret.second;
+
+                } else if (ret.first+1 == currentNode->numberOfSubstrings && ret.second < currentNode->numberOfLonelyChars){
+                    currentNode->connected = true;
+                    currentNode->numberOfSubstrings = ret.first+1;
+                    currentNode->numberOfLonelyChars = ret.second;
+                }
+            } else {
+                if(ret.first > currentNode->numberOfSubstrings) {
+                    currentNode->connected = false;
+                    currentNode->numberOfSubstrings = ret.first;
+                    currentNode->numberOfLonelyChars = ret.second+1;
+
+                } else if (ret.first == currentNode->numberOfSubstrings && ret.second+1 < currentNode->numberOfLonelyChars){
+                    currentNode->connected = false;
+                    currentNode->numberOfSubstrings = ret.first;
+                    currentNode->numberOfLonelyChars = ret.second+1;
+                }
+            }
+        }
+    }
+    return make_pair(nodes[0].numberOfSubstrings, nodes[0].numberOfLonelyChars);
 }
 
 int main () {
@@ -111,8 +219,10 @@ int main () {
     int textSize = text.size();
     int patternSize = pattern.size();
 
+    // cout << textSize << endl;
     nodes = vector<node> (textSize);
-    for (int i = 0; i < textSize; ++i) {
+    int i;
+    for (i = 0; i < textSize-1; ++i) {
         vector<edge> neighbours (1);
         neighbours[0] = {
                 i,
@@ -122,12 +232,23 @@ int main () {
         node temp = {
                 i,
                 false,
+                false,
                 neighbours,
-                0,
-                0,
+                INT_MIN,
+                INT_MAX,
         };
         nodes[i] = temp;
     }
+    vector<edge> neighbours (0);
+    node temp = {
+            i,
+            false,
+            false,
+            neighbours,
+            0,
+            1,
+    };
+    nodes[i] = temp;
 
 
     vector<vector<int>> levMatrix = levenshtein();
@@ -142,6 +263,8 @@ int main () {
         }
     }
 
+
+/*
     cout << setw(2) << "      ";
     for (int j = 0; j < text.size(); ++j) {
         cout << setw(2) << text[j] << " ";
@@ -163,7 +286,18 @@ int main () {
                 cout << RED << e.from << " -> " << e.to << NC << endl;
             }
         }
-    }
+    }*/
+
+
+    /*for (int j = 0; j < nodes.size(); ++j) {
+        if(!nodes[j].connected){
+            blob.second++;
+        }
+    }*/
+
+    pair<int, int> blob = iterativeDFS(0);
+    //pair<int, int> blob = dfs(0, false);
+    cout << blob.first << " " << blob.second;
 
     return 0;
 }
